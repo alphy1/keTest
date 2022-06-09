@@ -10,7 +10,7 @@ class Customer(models.Model):
     email = models.EmailField(max_length=200)
 
     def __str__(self):
-        return f"Customer: {self.name}"
+        return f"{self.name}"
 
 
 class Order(models.Model):
@@ -41,7 +41,7 @@ class Product(models.Model):
     title = models.CharField(max_length=200)
 
     def __str__(self):
-        return f"Product: {self.title}"
+        return f"{self.title}"
 
 
 class OrderItem(models.Model):
