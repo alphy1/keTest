@@ -12,3 +12,27 @@ class Customer(models.Model):
     def __str__(self):
         return f"Customer: {self.name}"
 
+
+class Order(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    address = models.CharField(max_length=200)
+    CREATED = 'CR'
+    COLLECTING = 'CO'
+    DELIVERING = 'DG'
+    DELIVERED = 'DE'
+    ISSUED = 'IS'
+    CANCELLED = 'CA'
+    STATUS_CHOICES = [
+        (CREATED, 'Создан'),
+        (COLLECTING, 'Собирается'),
+        (DELIVERING, 'Доставляется'),
+        (DELIVERED, 'Доставлен'),
+        (ISSUED, 'Выдан'),
+        (CANCELLED, 'Отменён')
+    ]
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default=CREATED,
+    )
+
