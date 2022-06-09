@@ -36,3 +36,10 @@ class Order(models.Model):
         default=CREATED,
     )
 
+
+class Product(models.Model):
+    title = models.CharField(max_length=200)
+
+    def __str__(self):
+        return f"Product: {self.title}"
+
