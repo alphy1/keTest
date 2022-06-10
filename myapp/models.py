@@ -40,6 +40,12 @@ class Order(models.Model):
     def __str__(self):
         return f'Order #{self.id}'
 
+    def order_price(self):
+        result = 0
+        for item in self.orderitem_set.all():
+            result += item.price * item.quantity
+        return result
+
 
 class Product(models.Model):
     title = models.CharField(max_length=200)
