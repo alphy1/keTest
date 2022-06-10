@@ -37,6 +37,9 @@ class Order(models.Model):
         default=CREATED,
     )
 
+    def __str__(self):
+        return f'Order #{self.id}'
+
 
 class Product(models.Model):
     title = models.CharField(max_length=200)
