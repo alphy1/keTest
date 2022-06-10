@@ -23,7 +23,7 @@ class CustomerAdmin(admin.ModelAdmin):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'customer')
-    list_filter = ['status']
+    list_filter = ['status', 'customer__phone_number']
 
 
 admin.site.register(OrderItem)
