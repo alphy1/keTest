@@ -62,6 +62,5 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderItemInline]
     readonly_fields = ['status']
 
-admin.site.register(OrderItem)
 
 admin.site.register(Product)
