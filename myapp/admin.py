@@ -47,11 +47,19 @@ class PriceFilter(SimpleListFilter):
         return queryset.filter(id__in=ids)
 
 
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+
+    def get_extra(self, request, obj=None, **kwargs):
+        return 0
+
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'customer', 'order_price')
     list_filter = ['status', 'customer__phone_number', PriceFilter, 'created_date']
 
+    inlines = [OrderItemInline]
 
 admin.site.register(OrderItem)
 
