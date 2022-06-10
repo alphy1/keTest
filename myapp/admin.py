@@ -20,7 +20,10 @@ class CustomerAdmin(admin.ModelAdmin):
         return False
 
 
-admin.site.register(Order)
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'customer')
+
 
 admin.site.register(OrderItem)
 
