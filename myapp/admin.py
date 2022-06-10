@@ -60,6 +60,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ['status', 'customer__phone_number', PriceFilter, 'created_date']
 
     inlines = [OrderItemInline]
+    readonly_fields = ['status']
 
 admin.site.register(OrderItem)
 
