@@ -49,8 +49,6 @@ class PriceFilter(SimpleListFilter):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'customer')
-    list_filter = ['status', 'customer__phone_number', 'created_date']
     list_display = ('id', 'customer', 'order_price')
     list_filter = ['status', 'customer__phone_number', PriceFilter, 'created_date']
 
