@@ -106,3 +106,4 @@ class OrderAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     ordering = ['id']
     list_display = ('id', 'title')
+    list_filter = ['id']
