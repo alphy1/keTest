@@ -63,6 +63,7 @@ class OrderItemInline(admin.TabularInline):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'customer', 'order_price')
+    ordering = ['id']
     list_filter = ['status', 'customer__phone_number', PriceFilter, 'created_date']
 
     inlines = [OrderItemInline]
@@ -101,4 +102,9 @@ class OrderAdmin(admin.ModelAdmin):
             return super(OrderAdmin, self).response_change(request, obj)
 
 
-admin.site.register(Product)
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    ordering = ['id']
+    list_display = ('id', 'title')
+    list_filter = ['id', 'title']
+    search_fields = ['title']
