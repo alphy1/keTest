@@ -15,6 +15,7 @@ class Customer(models.Model):
 
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    created_date = models.DateTimeField('date created')
     address = models.CharField(max_length=200)
     CREATED = 'CR'
     COLLECTING = 'CO'
