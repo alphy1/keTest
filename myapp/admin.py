@@ -1,12 +1,16 @@
 from django.contrib import admin
+from django.contrib.admin.templatetags.admin_urls import add_preserved_filters, register
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 from .models import Customer, Order, OrderItem, Product
 from django.contrib.admin import SimpleListFilter
-from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 from django.contrib import messages
 
 admin.autodiscover()
+
 
 # Register your models here.
 
@@ -74,6 +78,27 @@ class OrderAdmin(admin.ModelAdmin):
             '%d orders were successfully cancelled.',
             updated,
         ) % updated, messages.SUCCESS)
+
+    # ref: https://stackoverflow.com/questions/34897388/django-how-to-add-a-custom-button-to-admin-change-form-page-that-executes-an-ad
+    change_form_template = '../templates/custom_change_form.html'
+
+    def response_change(self, request, obj):
+        opts = self.model._meta
+        pk_value = obj._get_pk_val()
+        preserved_filters = self.get_preserved_filters(request)
+
+        if "_customaction" in request.POST:
+            # handle the action on your obj
+            self.cancel_order(request, Order.objects.filter(pk=pk_value))
+            redirect_url = reverse('admin:%s_%s_change' %
+                                   (opts.app_label, opts.model_name),
+                                   args=(pk_value,),
+                                   current_app=self.admin_site.name)
+            redirect_url = add_preserved_filters({'preserved_filters': preserved_filters, 'opts': opts},
+                                                 redirect_url)
+            return HttpResponseRedirect(redirect_url)
+        else:
+            return super(OrderAdmin, self).response_change(request, obj)
 
 
 admin.site.register(Product)
