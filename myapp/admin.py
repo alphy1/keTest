@@ -106,4 +106,5 @@ class OrderAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     ordering = ['id']
     list_display = ('id', 'title')
-    list_filter = ['id']
+    list_filter = ['id', 'title']
+    search_fields = ['title']
