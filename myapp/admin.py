@@ -3,6 +3,8 @@ from .models import Customer, Order, OrderItem, Product
 from django.contrib.admin import SimpleListFilter
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext
+from django.contrib import messages
 
 admin.autodiscover()
 
@@ -61,6 +63,17 @@ class OrderAdmin(admin.ModelAdmin):
 
     inlines = [OrderItemInline]
     readonly_fields = ['status']
+
+    actions = ['cancel_order']
+
+    @admin.action(description='Cancel selected orders')
+    def cancel_order(self, request, queryset):
+        updated = queryset.update(status='CA')
+        self.message_user(request, ngettext(
+            '%d order was successfully cancelled.',
+            '%d orders were successfully cancelled.',
+            updated,
+        ) % updated, messages.SUCCESS)
 
 
 admin.site.register(Product)
