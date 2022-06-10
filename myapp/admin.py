@@ -101,4 +101,6 @@ class OrderAdmin(admin.ModelAdmin):
             return super(OrderAdmin, self).response_change(request, obj)
 
 
-admin.site.register(Product)
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title')
