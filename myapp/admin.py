@@ -1,9 +1,24 @@
 from django.contrib import admin
-
-# Register your models here.
 from .models import Customer, Order, OrderItem, Product
 
-admin.site.register(Customer)
+admin.autodiscover()
+
+# Register your models here.
+
+
+@admin.register(Customer)
+class CustomerAdmin(admin.ModelAdmin):
+    list_display = ('name', 'phone_number', 'email')
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
 
 admin.site.register(Order)
 
