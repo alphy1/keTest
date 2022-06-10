@@ -11,6 +11,9 @@ class CustomerAdmin(admin.ModelAdmin):
     list_display = ('name', 'phone_number', 'email')
     list_display_links = None
 
+    def has_add_permission(self, request, obj=None):
+        return False
+
 
 admin.site.register(Order)
 
