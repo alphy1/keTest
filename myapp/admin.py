@@ -9,6 +9,7 @@ admin.autodiscover()
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ('name', 'phone_number', 'email')
+    list_display_links = None
 
 
 admin.site.register(Order)
